@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: ticketblitz-db
+    environment:
+      POSTGRES_DB: ticketblitz
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - ticketblitz-net
+
+  redis:
+    image: redis:alpine
+    container_name: ticketblitz-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - ticketblitz-net
+
+networks:
+  ticketblitz-net:
+    driver: bridge
+
+volumes:
+  postgres_data:
