@@ -51,4 +51,8 @@ public class BookingService {
             throw new SeatAlreadyBookedException("Seat was booked by another user just now. Please try another seat.");
         }
     }
+
+    public java.util.List<Booking> getBookingsByUser(Long userId) {
+        return bookingRepository.findByUserId(userId);
+    }
 }
