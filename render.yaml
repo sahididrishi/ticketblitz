@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: ticketblitz
+    env: docker
+    plan: free
+    branch: main
+    healthCheckPath: /
+    envVars:
+      - key: SERVER_PORT
+        value: 9099
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: ticketblitz-db
+          property: connectionString
+      - key: SPRING_DATASOURCE_USERNAME
+        fromDatabase:
+          name: ticketblitz-db
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: ticketblitz-db
+          property: password
+
+databases:
+  - name: ticketblitz-db
+    databaseName: ticketblitz
+    user: ticketblitz_user
+    plan: free
